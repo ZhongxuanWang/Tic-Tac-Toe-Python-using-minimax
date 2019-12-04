@@ -1,4 +1,4 @@
-# Tic-Tac-Toe-Python-using-minimax
+# Tic-Tac-Toe-using-minimax
 
 Using the recursive and backtracking algorithm called MiniMax on the TIC TAC TOE game.
 <br>
