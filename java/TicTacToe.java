@@ -5,15 +5,14 @@ import java.lang.reflect.Array;
 public class TicTacToe {
     /*
      * 
-     * Author: Zhongxuan(Daniel) Wang Website: dlearninglab.com Email:
-     * cndanielwang@gmail.com
+     * Author: Zhongxuan(Daniel) Wang
+     * Email: cndanielwang@gmail.com
      * 
      * User player: First player + use 'X' Comp player: Second player + use 'O'
      * 
      */
 
     public static int[][] board = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-    public static int[] bestmove = new int[2];
 
     public static void main(String[] args) {
         Scanner scr = new Scanner(System.in);
@@ -46,9 +45,8 @@ public class TicTacToe {
     /**
      * User's turn
      * 
-     * @param coo
-     * @return false: If the program doesn't want to continue executing
-     * @return true: If the program wants to continue executing
+     * @param coo coordinate
+     * @return false: If the program doesn't want to continue executing false otherwise.
      */
     public static boolean userturn(int[] coo) {
         if (checkocc(board, coo)) {
@@ -162,8 +160,7 @@ public class TicTacToe {
      * Check if the board is occupied.
      * 
      * @param c
-     * @return True: If occupied.
-     * @return False: If not occupied
+     * @return True: If occupied. false otherwise.
      */
     public static boolean checkocc(int[][] state, int[] coo) {
         return state[coo[0]][coo[1]] != 0 ? true : false;
@@ -172,10 +169,9 @@ public class TicTacToe {
     /**
      * Check if the player is won.
      * 
-     * @param state
-     * @param player
-     * @return true : If the player is won
-     * @return false : If the player is not won
+     * @param state the board
+     * @param player player
+     * @return true : If the player is won false otherwise.
      */
     public static boolean checkwin(int[][] state, int player) {
         // If you changed the game, you can simply change the array below.
@@ -194,7 +190,7 @@ public class TicTacToe {
     /**
      * Check available cells
      * 
-     * @param state
+     * @param state the board
      * @return an array of integer shows the coordinate of the empty cells
      */
     public static int[][] checkavi(int[][] state) {
@@ -215,9 +211,9 @@ public class TicTacToe {
     /**
      * Down the chess
      * 
-     * @param state
-     * @param coo
-     * @param player
+     * @param state the board
+     * @param coo coordinate
+     * @param player player
      */
     public static void downchess(int[][] state, int[] coo, int player) {
         try {
@@ -239,17 +235,15 @@ public class TicTacToe {
         return coo[0]*3 + coo[1];
     }
 
-    // ---------get
     /**
-     * Get coodinate of input x,y
+     * Get coordinate of input x,y
      * 
-     * @param coordinate
+     * @param coo coordinate
      * @return the array of coordinate.
      */
     public static int[] getcood(String coo) {
         try {
-            int[] inte = new int[] { Integer.parseInt(coo.split(",")[0]) - 1, Integer.parseInt(coo.split(",")[1]) - 1 };
-            return inte;
+            return new int[] { Integer.parseInt(coo.split(",")[0]) - 1, Integer.parseInt(coo.split(",")[1]) - 1 };
         } catch (Exception e) {
             System.out.println("Bad Input");
             return new int[] { -1 };
