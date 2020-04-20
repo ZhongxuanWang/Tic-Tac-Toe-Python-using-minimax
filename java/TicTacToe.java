@@ -158,12 +158,13 @@ public class TicTacToe {
 
     /**
      * Check if the board is occupied.
-     * 
-     * @param c
+     *
+     * @param state the board.
+     * @param coo the coordinate
      * @return True: If occupied. false otherwise.
      */
     public static boolean checkocc(int[][] state, int[] coo) {
-        return state[coo[0]][coo[1]] != 0 ? true : false;
+        return state[coo[0]][coo[1]] != 0;
     }
 
     /**
@@ -180,7 +181,7 @@ public class TicTacToe {
                 { state[0][1], state[1][1], state[2][1] }, { state[0][2], state[1][2], state[2][2] },
                 { state[0][0], state[1][1], state[2][2] }, { state[2][0], state[1][1], state[0][2] }, };
         for (int[] coo : winstate) {
-            if (coo[0] == coo[1] && coo[1] == coo[2] && coo[0] == coo[2] && coo[0] == player) {
+            if (coo[0] == coo[1] && coo[1] == coo[2] && coo[0] == player) {
                 return true;
             }
         }
@@ -194,7 +195,7 @@ public class TicTacToe {
      * @return an array of integer shows the coordinate of the empty cells
      */
     public static int[][] checkavi(int[][] state) {
-        ArrayList<Integer> emptycells = new ArrayList<Integer>();
+        ArrayList<Integer> emptycells = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (state[i][j] == 0)
