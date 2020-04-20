@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.reflect.Array;
@@ -13,6 +15,7 @@ public class TicTacToe {
      */
 
     public static int[][] board = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+    public static int[] best;
 
     public static void main(String[] args) {
         Scanner scr = new Scanner(System.in);
@@ -28,10 +31,12 @@ public class TicTacToe {
             if (coo[0] == -1)
                 continue;
 
-            // Including:
-            // check whether occupied --> down the chess --> check if won
-            if (!userturn(coo))
-                break;
+            if (check(board, coo)) {
+                System.out.println("Bad input");
+                continue;
+            }
+
+            userturn(coo);
 
             if (!aiturn())
                 break;
@@ -46,32 +51,25 @@ public class TicTacToe {
      * User's turn
      * 
      * @param coo coordinate
-     * @return false: If the program doesn't want to continue executing false otherwise.
      */
-    public static boolean userturn(int[] coo) {
-        if (checkocc(board, coo)) {
-            System.out.println("Bad input");
-            return true;
-        }
+    public static void userturn(int[] coo) {
         downchess(board, coo, -1);
         if (checkwin(board, -1)) {
             printboard();
             System.out.println("\nYou won!\n");
-            return false;
         }
-        return true;
     }
 
     public static boolean aiturn() {
         int[][] grids = checkavi(board);
-        int gsize = grids.length;
+        int aviGridNum = grids.length;
 
         // 2d Array clone
         int[][] states = new int[3][3];
         for (int i = 0; i < 3; i++) {
             System.arraycopy(board[i], 0, states[i], 0, 3);
         }
-        int[] sinf = abp(states, gsize, 1);
+        int[] sinf = abp(states, aviGridNum, 1);
 
         downchess(board, new int[]{sinf[0],sinf[1]}, 1);
 
@@ -87,7 +85,6 @@ public class TicTacToe {
     }
 
     public static int[] abp(int[][] state, int depth, int player) {
-        int[] best;
         if (player == 1) {
             best = new int[] {-1, -1, -1};
         } else {
@@ -163,8 +160,8 @@ public class TicTacToe {
      * @param coo the coordinate
      * @return True: If occupied. false otherwise.
      */
-    public static boolean checkocc(int[][] state, int[] coo) {
-        return state[coo[0]][coo[1]] != 0;
+    public static boolean check(int[][] state, int[] coo) {
+        return (coo[0] < state.length && coo[1] < state[0].length) && state[coo[0]][coo[1]] != 0;
     }
 
     /**
@@ -194,7 +191,7 @@ public class TicTacToe {
      * @param state the board
      * @return an array of integer shows the coordinate of the empty cells
      */
-    public static int[][] checkavi(int[][] state) {
+    public static int[] @NotNull [] checkavi(int[][] state) {
         ArrayList<Integer> emptycells = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -244,7 +241,8 @@ public class TicTacToe {
      */
     public static int[] getcood(String coo) {
         try {
-            return new int[] { Integer.parseInt(coo.split(",")[0]) - 1, Integer.parseInt(coo.split(",")[1]) - 1 };
+            return new int[] { Integer.parseInt(coo.split(",")[0]) - 1,
+                    Integer.parseInt(coo.split(",")[1]) - 1 };
         } catch (Exception e) {
             System.out.println("Bad Input");
             return new int[] { -1 };
