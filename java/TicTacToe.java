@@ -71,9 +71,7 @@ public class TicTacToe {
         // 2d Array clone
         int[][] states = new int[3][3];
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                states[i][j] = board[i][j];
-            }
+            System.arraycopy(board[i], 0, states[i], 0, 3);
         }
         int[] sinf = abp(states, gsize, 1);
 
